@@ -10,15 +10,25 @@ namespace TravelSaga.Steps
 
         public async Task CompensateAsync()
         {
-            Console.WriteLine("Restaurant reservation cancelled.");
+            "Restaurant reservation cancelled.".WriteColored(ConsoleMessageType.Warning);
             await Task.Delay(100);
         }
 
         public async Task<bool> ExecuteAsync()
         {
-            Console.WriteLine("Restaurant reserved.");
-            await Task.Delay(100);
-            return FailureSimulator.ShouldFail(0.7) ? false : true;
+            bool failed = FailureSimulator.ShouldFail(0.7);
+            if (failed)
+            {
+                "Restaurant reservation failed.".WriteColored(ConsoleMessageType.Fail);
+                await Task.Delay(100);
+                return false;
+            }
+            else
+            {
+                "Restaurant reserved.".WriteColored(ConsoleMessageType.Success);
+                await Task.Delay(100);
+                return true;
+            }
         }
     }
 }

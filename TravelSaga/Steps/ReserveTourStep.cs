@@ -1,4 +1,5 @@
 using TravelSaga.Steps.Contracts;
+using TravelSaga.Utils;
 
 namespace TravelSaga.Steps
 {
@@ -9,13 +10,13 @@ namespace TravelSaga.Steps
 
         public async Task CompensateAsync()
         {
-            Console.WriteLine("Tour reservation cancelled.");
+            "Tour reservation cancelled.".WriteColored(ConsoleMessageType.Warning);
             await Task.Delay(100);
         }
 
         public async Task<bool> ExecuteAsync()
         {
-            Console.WriteLine("Tour reserved.");
+            "Tour reserved.".WriteColored(ConsoleMessageType.Success);
             await Task.Delay(100);
             return true;
         }

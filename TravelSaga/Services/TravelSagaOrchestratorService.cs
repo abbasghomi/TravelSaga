@@ -2,6 +2,7 @@ using TravelSaga.Sagas;
 using TravelSaga.Sagas.Contracts;
 using TravelSaga.Steps;
 using TravelSaga.Steps.Contracts;
+using TravelSaga.Utils;
 
 namespace TravelSaga.Services
 {
@@ -34,7 +35,16 @@ namespace TravelSaga.Services
         {
             Console.WriteLine("\n--- Travel Booking Saga Starting ---\n");
             bool result = await _sagaOrchestrator.ExecuteAsync();
-            Console.WriteLine($"\n--- Travel Booking Saga Completed: {(result ? "SUCCESS" : "FAILURE")} ---\n");
+            Console.Write("\n--- Travel Booking Saga Completed: ");
+
+            if (result)
+            {
+                "SUCCESS ---".WriteColored(ConsoleMessageType.Success);
+            }
+            else
+            {
+                "FAILURE ---".WriteColored(ConsoleMessageType.Fail);
+            }
         }
     }
 }

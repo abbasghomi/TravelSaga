@@ -10,15 +10,25 @@ namespace TravelSaga.Steps
 
         public async Task CompensateAsync()
         {
-            Console.WriteLine("Event tickets booking cancelled.");
+            "Event tickets booking cancelled.".WriteColored(ConsoleMessageType.Warning);
             await Task.Delay(100);
         }
 
         public async Task<bool> ExecuteAsync()
         {
-            Console.WriteLine("Event tickets booked.");
-            await Task.Delay(100);
-            return FailureSimulator.ShouldFail(0.5) ? false : true;
+            bool failed = FailureSimulator.ShouldFail(0.5);
+            if (failed)
+            {
+                "Event tickets booking failed.".WriteColored(ConsoleMessageType.Fail);
+                await Task.Delay(100);
+                return false;
+            }
+            else
+            {
+                "Event tickets booked.".WriteColored(ConsoleMessageType.Success);
+                await Task.Delay(100);
+                return true;
+            }
         }
     }
 }

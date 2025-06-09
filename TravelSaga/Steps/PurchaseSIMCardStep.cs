@@ -10,15 +10,25 @@ namespace TravelSaga.Steps
 
         public async Task CompensateAsync()
         {
-            Console.WriteLine("SIM card purchase cancelled.");
+            "SIM card purchase cancelled.".WriteColored(ConsoleMessageType.Warning);
             await Task.Delay(100);
         }
 
         public async Task<bool> ExecuteAsync()
         {
-            Console.WriteLine("SIM card purchased.");
-            await Task.Delay(100);
-            return FailureSimulator.ShouldFail(0.5) ? false : true;
+            bool failed = FailureSimulator.ShouldFail(0.5);
+            if (failed)
+            {
+                "SIM card purchase failed.".WriteColored(ConsoleMessageType.Fail);
+                await Task.Delay(100);
+                return false;
+            }
+            else
+            {
+                "SIM card purchased.".WriteColored(ConsoleMessageType.Success);
+                await Task.Delay(100);
+                return true;
+            }
         }
     }
 }

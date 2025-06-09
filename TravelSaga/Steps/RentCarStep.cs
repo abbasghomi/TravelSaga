@@ -1,4 +1,5 @@
 using TravelSaga.Steps.Contracts;
+using TravelSaga.Utils;
 
 namespace TravelSaga.Steps
 {
@@ -9,13 +10,13 @@ namespace TravelSaga.Steps
 
         public async Task CompensateAsync()
         {
-            Console.WriteLine("Car rental cancelled.");
+            "Car rental cancelled.".WriteColored(ConsoleMessageType.Warning);
             await Task.Delay(100); // Simulate async work
         }
 
         public async Task<bool> ExecuteAsync()
         {
-            Console.WriteLine("Car rented.");
+            "Car rented.".WriteColored(ConsoleMessageType.Success);
             await Task.Delay(100); // Simulate async work
             return true;
         }
